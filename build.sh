@@ -1,0 +1,1 @@
+pdflatex revisioncards.tex

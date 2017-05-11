@@ -1,0 +1,948 @@
+\documentclass[2by4,grid]{flashcards}
+\cardfrontstyle[\large\slshape]{headings}
+
+\addtolength{\voffset}{-0.7cm}
+\addtolength{\hoffset}{-1.3cm}
+
+
+\newcommand{\courseName}{COURSENAME}
+\usepackage{listings}
+\usepackage{amsmath}
+\lstset{ %
+  basicstyle=\footnotesize,
+  breakatwhitespace=false,
+  breaklines=true,
+  captionpos=b,
+  escapeinside={\%*}{*)},
+  extendedchars=true,
+  frame=none,
+  inputpath=snippets/,
+  keepspaces=true,
+  numbersep=5pt,
+  numberstyle=\tiny\color{mygray},
+  showspaces=false,
+  showstringspaces=false,
+  showtabs=false,
+  stepnumber=2,
+  tabsize=2
+}
+
+\begin{document}
+
+% FORMAT
+%\begin{flashcard}[Top Left of Front (used for subject name)]{Main on Front(question)}
+%\vspace*{\stretch{1}}
+%Text on Back (answer)
+%\vspace*{\stretch{1}}
+%\end{flashcard}
+
+%Example Card
+\begin{flashcard}[Docs and Data]{What are some problems with documents in IRs?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+		\begin{itemize}
+            \item Expressed in natural language
+            \item Info we seek may not be in out language
+            \item Language is ambiguous
+            \item No. of documents rapidly increasing
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What are the three classes of need that Janser et al. (2008) identified and what percentage of queries do they contain?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+		\begin{itemize}
+            \item Informational ($\sim$80\%)
+            \item Navigational ($\sim$10\%)
+            \item Transactional ($\sim$10\%)
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is usually contained in a navigational query?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item Company/business/organisation name.
+            \item Domain suffix (.com, .co.uk).
+            \item Contains `web'.
+            \item Query is less than 3 words.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is usually contained in a transactional query?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item Terms related to movies, songs, recipes etc.
+            \item Queries with `obtaining' terms.
+            \item Download terms.
+            \item Entertainment terms.
+            \item Interaction terms (`buy', `chat').
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is usually contained in an informational query?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \item Use of question words.
+        \item Many phrases.
+        \item Informational items e.g. `list of'.
+        \item Query length larger than 2 words.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{Define `index language'}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        A means of representing documents and of representing queries.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is a document-term matrix?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        A mathematic matrix that describes the frequency of terms that occur in a collection of documents.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What do we do if we want to perform the query `Brutus AND Caesar' in the prescence of a document-term matrix?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Take vectors for each term and perform a bitwise AND.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{
+    Given the following document-term matrix, answer the query `Brutus AND Caesar' \\ \vspace{.4cm}
+    \begin{tabular}{p{.6in}p{.8in}p{.6in}p{.7in}}
+        \hline
+        & Antony \& Cleopatra & Julius Caesar & The \newline Tempest \\
+        \hline
+        Antony & 1 & 0 & 0 \\
+        Brutus & 1 & 1 & 0 \\
+        Caesar & 1 & 1 & 1 \\
+        \hline
+    \end{tabular}
+    }
+	\vspace*{\stretch{1}}
+	\begin{center}
+        110 \& 111 = 110 \\ \vspace{.4cm}
+        Antony \& Cleopatra, Julius Caesar
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the boolean retrieval model?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        A model for information retrieval in which we can pose any query which is in the form of a boolean expression of terms.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the big problem with document-term matrices?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        If we have a realistic collection of documents ($N = 1M$) in which each document hold 1,000 terms. If we assume 500,000 unique words in the whole collection, our matrix will have half a trillion 1s and 0s.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the solution to having huge document-term matrices that have a huge amount of 1s and 0s?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Only store the 1s which leads to using an inverted index.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the concept of an inverted index?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{enumerate}
+            \item Keep a dictionary of terms.
+            \item For each term, have a list that records which documents it occurs in.
+        \end{enumerate}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the name of a term in an inverted index?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        A posting
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What are the four major steps in building an index?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{enumerate}
+            \item Collect documents to be indexed.
+            \item Tokenize text, turning each document into a list of tokens (tokenizer).
+            \item Do linguistic preprocessing, producing normalized tokens, which are the indexing terms (linguistic modules).
+            \item Index the documents that each term occurs in by creating an inverted index (indexer)
+        \end{enumerate}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{In what form is the input to an inverted indexer?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        A sequence of (modified token, document ID) pairs.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What happens straight after an inverted indexer receives its input?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        The input is sorted by modified token and then by document ID.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What happens straight after an inverted indexer's input is sorted?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Multiple term entries in a single document are merged and then data is split into dictionary and postings list.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How is a boolean AND query processed by using an inverted index?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{enumerate}
+            \item Locate the terms in the index.
+            \item Intersect their postings lists.
+        \end{enumerate}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How can AND queries be optimized when using an inverted index?\\ \vspace{.4cm} For example: Brutus AND Caesar AND Caplurnia}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Process the query in order of increasing frequency i.e. process the query with the smallest summed postings list size first.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How can OR/AND queries be optimized when using an inverted index?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Estimate the size of each OR query by summing the document frequencies of each term, then process by lowest frequency first.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{Given the following, what's the processing order?\\ \vspace{.4cm}
+    \begin{tabular}{ll}
+        \hline
+        Term & Frequency \\
+        \hline
+        eyes & 213,312 \\
+        cat & 87,009 \\
+        dog & 107,913 \\
+        skies & 271,658 \\
+        owl & 46,653 \\
+        trees & 316,812 \\
+        \hline
+    \end{tabular} \\ \vspace{.2cm}
+    (cat OR trees) \& (dog OR skies) \& (owl OR eyes)
+    }
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{enumerate}
+            \item (dog OR skies) AND (owl OR eyes)
+            \item (1) AND (cat OR trees)
+        \end{enumerate}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What are some Boolean model pros?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item Simple model, easy/efficient to implement.
+            \item Precise. Document either matches or doesn't.
+            \item Widely used for commercial, legal retrieval and for specialist searches.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What are some Boolean model cons?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item AND gives too few or no results, OR gives too many.
+            \item No ordering of results.
+            \item Order of words in document not used.
+            \item Basic boolean expressions too limiting for informational needs.
+            \item Non-expert user doesn't understand boolean operators.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What are the three main classes of tokens involved in tokenization?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item Morphosyntactic word
+            \item Punctuation mark of special symbol
+            \item A number
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is a major issue with splitting documents on spaces?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Some languages don't use spaces to distinguish a split in words such as Chinese.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{In IR, what is a stop word?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        A stop word is a highly frequently occuring word which is filtered out as it has low distinguishing power.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{Why are stop words kept in indexes nowadays?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Because they can add context to searches and the cost of storing and processing them is constantly reducing.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{In IR, what is token normalization?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        The process of mapping tokens to their normalised form e.g. B.B.C $\rightarrow$ BBC
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{In IR, what is stemming?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        The process of chopping `ends of words' before indexing.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What are some issues that come with stemming?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item It is a crude process and may yield forms that are `not words'.
+            \item Under-stemming fails to conflate related forms.
+            \item Over-stemming conflates unrelated forms.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the name of a popular stemming algorithm?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Porter's stemming algorithm.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What are the two measures used to evaluate the performance of search engines and what do they mean? How do they relate?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item Precision - the fraction of retrieved documents that are relevant.
+            \item Recall - the fraction of relevant documents that are retrieved.
+            \item Precision increases are recall decreases.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What does a term-document matrix show?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        How many times a word occurs in a document.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is term frequency?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        The amount of times a term $t$ appears in a document $d$.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the document frequency of term $t$?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        The number of documents that contains the term $t$.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the formula for inverse document frequency of a term $t$?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        $idf_t = log\frac{N}{df_t}$ \\ \vspace{.4cm}
+        $N$: number of documents in collection. \\
+        $df_t$: document frequency of term $t$.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{Why is $log$ used in the calculation of a terms inverse document frequency?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        It dampens the effect of $idf$.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the formula for the tf-idf weighting of a term, $t$, in a document, $d$?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        $W_{t,d} = (1+ log(tf_{t,d})) * log_{10}\Big(\frac{N}{df_{t}}\Big)$
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How do we calculate the final ranking score of a document given a query?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        $\text{Score}_{q,d} = \sum\nolimits_{t \in q \cap d} \text{tf.idf}_{t,d}$ \\ \vspace{.4cm}
+        Add up tf-idf weight of each query term found in $d$.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How can vectors be used to rank documents given a query?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Represent both documents and query as vectors and rank the documents according to their proximity to the query in the vector space.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{Why shouldn't we measure vector space proximity in terms of Euclidean distance?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Because Euclidean distance can be very large for vectors of different length although they are close to each other in the space.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the alternative to measuring vector space proximity with Euclidean distance?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Measuring the angle between vectors.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the process of measuring the angle between two vectors?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{enumerate}
+            \item Length-normalize the vectosrs (divide components by magnitude).
+            \item Calculate the dot product of the normalized vectors.
+            \item Inverse cosine the result.
+        \end{enumerate}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the angle between the vectors (7, 10) and (13, 2)?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        $\theta \approx 46.3$
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What does the PageRank algorithm do?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Calculates a score for each page by using the hyperlinked structure of the web.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What notion is used in the PageRank algorithm?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        A random web surfer is used who goes from the current page to a random one that the current page links to. Another option is that the surfer teleports to a random page that the current page doesn't link to.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How does the PageRank teleport operation work?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item When at a node with no out-links, invoke the teleport operation.
+            \item When at a node with out-links, invoke the teleport operation with probability $0 < x < 1$. Usually $x$ is around 15.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What is the equation to calculate the PageRank score of a page, $x$?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        $C_t$: out-degree of $t$ \\ \vspace{.4cm}
+        $PR(x) = \alpha \bigg(\frac{1}{N}\bigg)+(1 − \alpha ) \sum\limits_{i=1}^n \frac{PR(t_i)}{C(t_i)}$ \\ \vspace{.4cm}
+        Left side of +: probability of a random jump \\
+        Right side of +: probability of a normal click multiplied by the sum of the contributions of all pages contributing IN links to $x$ based on the number of OUT links for each such page and its own PageRank score.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How to we distribute probability among PageRank nodes at the start of the algorithm?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Distribute probability equally e.g. 5 nodes would each have probability 0.2.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How does one iteration of the PageRank algorithm work?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{enumerate}
+            \item Distribute node's probability equally among its out-links.
+            \item Each node sums up their incoming links.
+        \end{enumerate}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{When do we stop performing PageRank iterations?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        When we reach convergenge, however it is defined.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{How is PageRank used in the real world?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        PageRank assigns a global importance score to each page on the web, independent of query. When a query is performed, ranking is improved by combining (multiplying) tf-idf scores with PageRank scores.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{Conventional IR relies on...}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item Finding words/phrases that characterise a document.
+            \item Constructing inverted indexes for rapid lookup and to enable search such as boolean search.
+            \item Use of vector space models, similarity measures, tf-idf etc. for ranking.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What does a deeper analysis of documents call for and why?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        Distributed computing due to the handling of a far greater number of units and processing.
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What other features as well as tokens may be processed when performing deep analysis of documents?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item Word meaning
+            \item Grammar
+            \item Semantics
+            \item Potentially higher/deeper levels such as pragmatics.
+        \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{What does text mining improve in relation to information retrieval?}
+	\vspace*{\stretch{1}}
+	\begin{center}
+        \begin{itemize}
+            \item The clustering and classification of documents.
+            \item Information access by going beyond just terms.
+            \item The precision of search (fewer but more relevant results).
+    \end{itemize}
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+\begin{flashcard}[Docs and Data]{}
+	\vspace*{\stretch{1}}
+	\begin{center}
+
+	\end{center}
+	\vspace*{\stretch{1}}
+\end{flashcard}
+
+
+
+\end{document}
